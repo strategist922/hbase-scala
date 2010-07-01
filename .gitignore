@@ -2,3 +2,4 @@
 .project
 .settings
 .scala_dependencies
+target

@@ -24,9 +24,9 @@
 	<artifactId>hbase-scala</artifactId>
 	<packaging>jar</packaging>
 	<version>0.21.0-SNAPSHOT</version>
-	<name>HBase-Scala</name>
+	<name>hbase-scala</name>
 	<description>Scala client API for HBase</description>
-	<url>http://github.com/jbaldassari/HBase-Scala</url>
+	<url>http://github.com/jbaldassari/hbase-scala</url>
 
 	<licenses>
 		<license>
@@ -37,8 +37,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git://github.com/jbaldassari/HBase-Scala.git</connection>
-		<developerConnection>scm:git://github.com/jbaldassari/HBase-Scala.git</developerConnection>
+		<connection>scm:git://github.com/jbaldassari/hbase-scala.git</connection>
+		<developerConnection>scm:git://github.com/jbaldassari/hbase-scala.git</developerConnection>
+		<url>scm:git://github.com/jbaldassari/hbase-scala.git</url>
 	</scm>
 	
 	<developers>
