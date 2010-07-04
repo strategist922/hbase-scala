@@ -27,7 +27,7 @@ class GetSpec extends SpecificationWithJUnit with HBaseTestCluster {
 		"perform implicit conversion to standard Get" in {
 			val hTable = new HTable(configuration, TABLE_NAME)
 			val get = Get[String]("TestRow", { rowString: String => Bytes.toBytes(rowString) })
-			hTable.get(get)
+			hTable.get(get).size mustEqual 0
 		}
 	}
 	

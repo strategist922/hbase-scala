@@ -56,11 +56,17 @@
 		<jdk.version>1.6</jdk.version>
 		<scala.version>2.8.0.RC6</scala.version>
 		<scala.plugin.version>2.12</scala.plugin.version>
-		<scala.specs.version>1.6.1-2.8.0.Beta1-RC6</scala.specs.version>
+		<!--<scala.specs.artifactId>specs</scala.specs.artifactId>-->
+		<!--<scala.specs.version>1.6.1-2.8.0.Beta1-RC6</scala.specs.version>-->
+		<scala.specs.artifactId>specs_2.8.0.RC7</scala.specs.artifactId>
+		<!--<scala.specs.artifactId>specs_2.8.0-SNAPSHOT</scala.specs.artifactId>-->
+		<scala.specs.version>1.6.5-SNAPSHOT</scala.specs.version>
+		<!--<scala.specs.version>1.6.0-2.8.0-SNAPSHOT</scala.specs.version>-->
 		<maven.surefire.version>2.4.3</maven.surefire.version>
 		<junit.version>4.4</junit.version>
 		<log4j.version>1.2.15</log4j.version>
 		<hbase.version>0.21.0-SNAPSHOT</hbase.version>
+		<hadoop.version>0.20.3-append-r956776+1240+tail</hadoop.version>
 	</properties>
 
 	<repositories>
@@ -73,6 +79,9 @@
 			<id>scala-tools.org-snapshot</id>
 			<name>Scala-tools Maven2 Snapshot Repository</name>
 			<url>http://scala-tools.org/repo-snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 		<repository>
 			<id>apache-releases</id>
@@ -178,7 +187,7 @@
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.scala-tools.testing</groupId>
-			<artifactId>specs</artifactId>
+			<artifactId>${scala.specs.artifactId}</artifactId>
 			<version>${scala.specs.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -187,11 +196,31 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase</artifactId>
+			<classifier>tests</classifier>
+			<version>${hbase.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase</artifactId>
+			<classifier>tests</classifier>
+			<version>${hbase.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-test</artifactId>
+			<version>${hadoop.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -213,10 +242,14 @@
 					</execution>
 				</executions>
 				<configuration>
-					<jvmArg>
+					<jvmArgs>
 						<jvmArg>-Xms64m</jvmArg>
 						<jvmArg>-Xmx1024m</jvmArg>
-					</jvmArg>
+					</jvmArgs>
+					<args>
+						<arg>-unchecked</arg>
+						<arg>-deprecation</arg>
+					</args>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -247,8 +280,22 @@
 						<include>**/*Test.java</include>
 						<include>**/*Spec.java</include>
 					</includes>
+					<systemProperties>
+						<property>
+							<name>log4j.configuration</name>
+							<value>log4j.xml</value>
+						</property>
+					</systemProperties>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
